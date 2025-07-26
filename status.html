@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>药箱状态监控</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #388E3C;
+            --warning-color: #FFA500;
+            --danger-color: #F44336;
+            --light-gray: #f5f5f5;
+            --border-color: #e0e0e0;
+            --text-color: #333;
+            --text-light: #777;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            margin-left: 250px;
+            padding: 25px;
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            transition: margin-left 0.3s;
+        }
+        
+        /* 主标题样式 */
+        .header {
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .header h2 {
+            color: var(--primary-dark);
+            font-size: 24px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* 系统信息卡片 */
+        .system-info {
+            display: flex;
+            justify-content: space-between;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-box {
+            text-align: center;
+            flex: 1;
+            padding: 0 15px;
+        }
+        
+        .info-box:not(:last-child) {
+            border-right: 1px solid var(--border-color);
+        }
+        
+        .info-value {
+            font-size: 28px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+        
+        /* 药箱仪表盘 */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        /* 药箱卡片 */
+        .medicine-box {
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        
+        .medicine-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .medicine-header {
+            margin-bottom: 10px;
+            position: relative;
+            min-height: 40px;
+        }
+        .medicine-id-badge {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 38px;
+            height: 38px;
+            background: #2d5be3;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(45,91,227,0.08);
+            border: 2px solid #fff;
+        }
+        .medicine-name {
+            font-size: 22px;
+            color: var(--primary-color);
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-align: center;
+            margin: 0 auto;
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+        
+        /* 状态指示器 */
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .status-text {
+            font-weight: 500;
+        }
+        
+        .status-normal {
+            color: var(--primary-color);
+        }
+        
+        .status-warning {
+            color: var(--warning-color);
+        }
+        
+        .status-danger {
+            color: var(--danger-color);
+        }
+        
+        /* 药量指示器 */
+        .level-indicator {
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .level {
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transition: width 0.5s ease;
+        }
+        
+        .level-normal {
+            background-color: var(--primary-color);
+        }
+        
+        .level-warning {
+            background-color: var(--warning-color);
+        }
+        
+        .level-danger {
+            background-color: var(--danger-color);
+        }
+        
+        .level-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+        
+        /* 环境信息 */
+        .env-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .env-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .env-value {
+            font-weight: 600;
+            margin-top: 5px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            body {
+                margin-left: 0;
+                padding-top: 70px;
+            }
+            
+            .system-info {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .info-box:not(:last-child) {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding-bottom: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* 图标字体 */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+        .delete-medicine-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #F44336;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 2;
+        }
+        .delete-medicine-btn:hover {
+            color: #b71c1c;
+        }
+        .edit-medicine-btn {
+            position: absolute;
+            top: 10px;
+            right: 45px;
+            background: none;
+            border: none;
+            color: #388E3C;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 2;
+        }
+        .edit-medicine-btn:hover {
+            color: #1b5e20;
+        }
+        /* 添加药品弹窗 */
+        .modal-mask {
+            position: fixed;
+            left: 0; top: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal {
+            background: #fff;
+            border-radius: 10px;
+            padding: 30px 30px 20px 30px;
+            min-width: 320px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        }
+        .modal input {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 18px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .modal button {
+            padding: 8px 18px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .modal .ok-btn { background: #4CAF50; color: #fff; }
+        .modal .cancel-btn { background: #eee; color: #333; }
+    </style>
+</head>
+<body>
+    <div id="nav-menu-container"></div>
+    
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+        <div class="header">
+        <h2><i class="fas fa-box-open"></i> 药箱状态监控</h2>
+      </div>
+      <button id="add-medicine-btn" style="padding:8px 18px;font-size:16px;background:#4CAF50;color:#fff;border:none;border-radius:6px;cursor:pointer;">+ 添加药品</button>
+    </div>
+
+    <div class="system-info">
+        <div class="info-box">
+            <div><i class="fas fa-thermometer-half"></i> 系统温度</div>
+            <div class="info-value" id="systemTemp">25.5°C</div>
+        </div>
+        <div class="info-box">
+            <div><i class="fas fa-tint"></i> 系统湿度</div>
+            <div class="info-value" id="systemHumidity">45%</div>
+        </div>
+        <div class="info-box">
+            <div><i class="fas fa-heartbeat"></i> 系统状态</div>
+            <div class="info-value" id="systemStatus">正常</div>
+        </div>
+    </div>
+
+    <!-- 药箱状态卡片式展示 -->
+    <div class="dashboard" id="medicineDashboard">
+      <!-- JS动态生成药箱卡片 -->
+    </div>
+
+    <script>
+const Medicinalherbs_dict = {
+  1: '制草乌', 2: '羌活', 3: '独活', 4: '炒桃仁',
+  5: '透骨草', 6: '夏枯草', 7: '生黄芪', 8: '炒白术',
+  9: '草决明', 10: '桔梗', 11: '茯苓', 12: '当归',
+  13: '白芍', 14: '川穹', 15: '浮小麦', 16: '金银花'
+};
+
+function getMockMedicineBoxes() {
+  const arr = [];
+  for (let id in Medicinalherbs_dict) {
+    const level = (Math.random() * 100).toFixed(1); // 药量百分比
+    let status = '正常', statusClass = 'status-normal', icon = 'check-circle', levelClass = 'level-normal';
+    if (level < 20) {
+      status = '缺药';
+      statusClass = 'status-danger';
+      icon = 'exclamation-circle';
+      levelClass = 'level-danger';
+    } else if (level < 50) {
+      status = '注意';
+      statusClass = 'status-warning';
+      icon = 'exclamation-triangle';
+      levelClass = 'level-warning';
+    }
+    arr.push({
+      id,
+      name: Medicinalherbs_dict[id],
+      level,
+      status,
+      statusClass,
+      icon,
+      levelClass
+    });
+  }
+  return arr;
+}
+
+let medicines = getMockMedicineBoxes();
+
+// 获取药品数据（持久化）
+async function fetchMedicines() {
+  const res = await fetch('/api/medicineBoxes');
+  medicines = await res.json();
+}
+
+// 渲染卡片，含编辑按钮
+function renderMedicineBoxes(data) {
+  const dashboard = document.getElementById('medicineDashboard');
+  dashboard.innerHTML = '';
+  data.forEach(medicine => {
+    const box = document.createElement('div');
+    box.className = 'medicine-box';
+    box.innerHTML = `
+      <button class="edit-medicine-btn" title="编辑药品" data-id="${medicine.id}">✎</button>
+      <button class="delete-medicine-btn" title="删除药品" data-id="${medicine.id}">×</button>
+      <div class="medicine-header">
+        <div class="medicine-id-badge">${medicine.id}</div>
+        <div class="medicine-name">${medicine.name}</div>
+      </div>
+      <div class="status-indicator">
+        <span class="status-text ${medicine.statusClass}">
+          <i class="fas fa-${medicine.icon}"></i> ${medicine.status}
+        </span>
+      </div>
+      <div class="level-labels">
+        <span>0%</span><span>50%</span><span>100%</span>
+      </div>
+      <div class="level-indicator">
+        <div class="level ${medicine.levelClass}" style="width: ${medicine.level}%"></div>
+      </div>
+      <div style="text-align:right;font-size:13px;color:#888;">当前库存：${medicine.level}%</div>
+    `;
+    dashboard.appendChild(box);
+  });
+  // 绑定删除事件
+  document.querySelectorAll('.delete-medicine-btn').forEach(btn => {
+    btn.onclick = async function() {
+      const id = btn.getAttribute('data-id');
+      if (confirm('确定要删除该药品吗？')) {
+        await fetch(`/api/medicineBoxes/${id}`, { method: 'DELETE' });
+        await fetchMedicines();
+        renderMedicineBoxes(medicines);
+      }
+    };
+  });
+  // 绑定编辑事件
+  document.querySelectorAll('.edit-medicine-btn').forEach(btn => {
+    btn.onclick = function() {
+      const id = btn.getAttribute('data-id');
+      const medicine = medicines.find(m => m.id == id);
+      showEditMedicineModal(medicine);
+    };
+  });
+}
+
+// 只保留WebSocket实时推送温湿度
+const ws = new WebSocket('ws://' + window.location.hostname + ':3000');
+ws.onmessage = function(event) {
+  const msg = JSON.parse(event.data);
+  if (msg.type === 'envData') {
+    document.getElementById('systemTemp').textContent = msg.data.temperature + '°C';
+    document.getElementById('systemHumidity').textContent = msg.data.humidity + '%';
+  }
+};
+
+// 动态获取药箱状态并设置系统状态
+function updateSystemStatusByMedicineBoxes() {
+  fetch('/api/medicineBoxes')
+    .then(res => res.json())
+    .then(boxes => {
+      let allOk = boxes.every(box => box.level >= 50);
+      document.getElementById('systemStatus').textContent = allOk ? '正常' : '警告';
+    });
+}
+// 页面加载和每30秒自动刷新一次系统状态
+updateSystemStatusByMedicineBoxes();
+setInterval(updateSystemStatusByMedicineBoxes, 30000);
+
+// 编辑药品弹窗
+function showEditMedicineModal(medicine) {
+  if (document.getElementById('modal-mask')) return;
+  const mask = document.createElement('div');
+  mask.className = 'modal-mask';
+  mask.id = 'modal-mask';
+  mask.innerHTML = `
+    <div class="modal">
+      <h3 style="margin-bottom:18px;">编辑药品</h3>
+      <input id="edit-medicine-name" placeholder="药品名称" maxlength="20" value="${medicine.name}" />
+      <input id="edit-medicine-level" type="number" min="0" max="100" placeholder="库存(0-100%)" value="${medicine.level}" />
+      <div style="text-align:right;">
+        <button class="ok-btn" id="edit-medicine-ok">确定</button>
+        <button class="cancel-btn" id="edit-medicine-cancel">取消</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(mask);
+  document.getElementById('edit-medicine-cancel').onclick = () => mask.remove();
+  document.getElementById('edit-medicine-ok').onclick = async () => {
+    const name = document.getElementById('edit-medicine-name').value.trim();
+    let level = parseFloat(document.getElementById('edit-medicine-level').value);
+    if (!name) { alert('药品名称不能为空'); return; }
+    if (isNaN(level) || level < 0 || level > 100) { alert('库存需为0-100之间的数字'); return; }
+    await fetch(`/api/medicineBoxes/${medicine.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, level })
+    });
+    await fetchMedicines();
+    renderMedicineBoxes(medicines);
+    mask.remove();
+  };
+}
+
+// 添加药品弹窗
+function showAddMedicineModal() {
+  if (document.getElementById('modal-mask')) return;
+  const mask = document.createElement('div');
+  mask.className = 'modal-mask';
+  mask.id = 'modal-mask';
+  mask.innerHTML = `
+    <div class="modal">
+      <h3 style="margin-bottom:18px;">添加新药品</h3>
+      <input id="new-medicine-name" placeholder="药品名称" maxlength="20" />
+      <input id="new-medicine-level" type="number" min="0" max="100" placeholder="初始库存(0-100%)" />
+      <div style="text-align:right;">
+        <button class="ok-btn" id="add-medicine-ok">确定</button>
+        <button class="cancel-btn" id="add-medicine-cancel">取消</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(mask);
+  document.getElementById('add-medicine-cancel').onclick = () => mask.remove();
+  document.getElementById('add-medicine-ok').onclick = async () => {
+    const name = document.getElementById('new-medicine-name').value.trim();
+    let level = parseFloat(document.getElementById('new-medicine-level').value);
+    if (!name) { alert('药品名称不能为空'); return; }
+    if (isNaN(level) || level < 0 || level > 100) { alert('库存需为0-100之间的数字'); return; }
+    await fetch('/api/medicineBoxes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, level })
+    });
+    await fetchMedicines();
+    renderMedicineBoxes(medicines);
+    mask.remove();
+  };
+}
+document.getElementById('add-medicine-btn').onclick = showAddMedicineModal;
+
+document.addEventListener('DOMContentLoaded', async function() {
+  await fetchMedicines();
+  renderMedicineBoxes(medicines);
+  // updateSystemStatus(); // 移除旧的温湿度更新逻辑
+});
+    </script>
+    <script>
+    // 检查登录状态并加载菜单
+    if(!localStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        } else {
+        // 加载菜单
+            fetch('menu.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('nav-menu-container').innerHTML = html;
+                // 高亮当前页面菜单项
+                    highlightActiveMenu();
+            })
+            .catch(error => {
+                console.error('菜单加载失败:', error);
+                });
+        }
+
+    // 高亮当前页面菜单项
+        function highlightActiveMenu() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const menuItems = document.querySelectorAll('.nav-menu a:not(.logout)');
+        
+            menuItems.forEach(item => {
+            if(item.getAttribute('href') === currentPage) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+    // 退出登录函数
+        window.logout = function() {
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = 'login.html';
+    };
+    </script>
+</body>
+</html> 

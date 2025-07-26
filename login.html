@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>中药配药系统 - 登录</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('image/login-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        }
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(255,255,255,0.92);
+            border-radius: 18px;
+            box-shadow: 0 12px 40px 0 rgba(60,60,60,0.18);
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out;
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(2px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .login-container:hover {
+            transform: translateY(-5px);
+        }
+        .login-header {
+            background: linear-gradient(120deg, #4CAF50 60%, rgba(76,175,80,0.7) 100%);
+            color: white;
+            padding: 32px 32px 18px 32px;
+            text-align: center;
+            border-bottom-left-radius: 60px 30px;
+            border-bottom-right-radius: 60px 30px;
+            box-shadow: 0 4px 16px rgba(76,175,80,0.08);
+            width: 100%;
+        }
+        .login-header h2 {
+            font-weight: 700;
+            margin-bottom: 7px;
+            font-size: 26px;
+            letter-spacing: 1px;
+        }
+        .login-header p {
+            opacity: 0.93;
+            font-size: 15px;
+        }
+        .login-body {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 32px 18px 32px;
+            box-sizing: border-box;
+        }
+        .login-form-wrapper {
+            width: 100%;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .input-group {
+            margin-bottom: 22px;
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+            text-align: left;
+            width: 90%;
+            max-width: 260px;
+        }
+        .input-group input {
+            width: 90%;
+            max-width: 260px;
+            padding: 1.1em 1.2em;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 1.08rem;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.95);
+            display: block;
+            margin: 0 auto;
+        }
+        .input-group input:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.13);
+            outline: none;
+        }
+        .login-btn {
+            width: 90%;
+            max-width: 260px;
+            padding: 15px;
+            background: linear-gradient(90deg, #4CAF50 80%, #45a049 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 2px 8px rgba(76,175,80,0.10);
+            letter-spacing: 2px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .login-btn:hover {
+            background: linear-gradient(90deg, #388E3C 80%, #4CAF50 100%);
+            box-shadow: 0 5px 18px rgba(76, 175, 80, 0.18);
+        }
+        .login-footer {
+            text-align: center;
+            padding: 18px 0 10px 0;
+            font-size: 14px;
+            color: #6c757d;
+            border-top: 1px solid #e9ecef;
+            background: rgba(255,255,255,0.7);
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            width: 100%;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 480px) {
+            .login-container {
+                width: 98%;
+                margin: 0 auto;
+            }
+            .login-header, .login-body {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .login-form-wrapper {
+                max-width: 98vw;
+            }
+        }
+    </style>
+</head>
+</body>
+    <div class="login-container">
+        <div class="login-header">
+            <h2>中药配药系统</h2>
+            <p>请使用您的账号登录系统</p>
+        </div>
+        <div class="login-body">
+            <div class="login-form-wrapper">
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label for="username">用户名</label>
+                        <input type="text" id="username" placeholder="请输入用户名" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">密码</label>
+                        <input type="password" id="password" placeholder="请输入密码" required>
+                    </div>
+                    <button type="submit" class="login-btn">登 录</button>
+                </form>
+            </div>
+        </div>
+        <div class="login-footer">
+            中药配药系统
+        </div>
+    </div>
+    <script>
+    window.onload = function() {
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if(username === 'admin' && password === '123456') {
+                localStorage.setItem('isLoggedIn', 'true');
+                document.querySelector('.login-container').style.animation = 'fadeOut 0.5s ease forwards';
+                setTimeout(() => {
+                    window.location.href = 'prescription.html';
+                }, 500);
+            } else {
+                const form = document.getElementById('loginForm');
+                form.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    form.style.animation = '';
+                }, 500);
+                alert('用户名或密码错误');
+            }
+        });
+        // 添加CSS动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                to {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+            }
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                20%, 60% { transform: translateX(-5px); }
+                40%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+    };
+    </script>
+</body>
+</html> 

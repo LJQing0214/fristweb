@@ -1,0 +1,1393 @@
+{
+  "handwritten": [
+    {
+      "id": "202507210001",
+      "patientName": "张三",
+      "type": "handwritten",
+      "title": "手写药单",
+      "status": "done",
+      "dispensingStatus": "dispensed",
+      "image": "/images/presc_1753105334301_815.jpeg",
+      "copies": 1,
+      "medicines": [
+        {
+          "name": "生黄芪",
+          "weight": "15"
+        },
+        {
+          "name": "羌活",
+          "weight": "10"
+        }
+      ],
+      "timestamp": "2025-07-21T13:42:14.307Z",
+      "actualMedicines": [
+        {
+          "name": "zhicaowu",
+          "weight": 0
+        },
+        {
+          "name": "qianghuo",
+          "weight": 0
+        },
+        {
+          "name": "duhuo",
+          "weight": 0
+        },
+        {
+          "name": "chaotaoren",
+          "weight": 0
+        },
+        {
+          "name": "tougucao",
+          "weight": 0
+        },
+        {
+          "name": "xiakucao",
+          "weight": 0
+        },
+        {
+          "name": "shenghuangqi",
+          "weight": 0
+        },
+        {
+          "name": "chaobaishu",
+          "weight": 0
+        }
+      ],
+      "actualCopies": 1
+    },
+    {
+      "id": "202507210001",
+      "patientName": "张明",
+      "type": "handwritten",
+      "title": "手写药单",
+      "status": "waiting",
+      "dispensingStatus": "not",
+      "image": "/images/presc_1753096722221_4629.jpeg",
+      "copies": "5",
+      "medicines": [
+        {
+          "name": "制草乌",
+          "weight": "19"
+        },
+        {
+          "name": "羌活",
+          "weight": "14"
+        },
+        {
+          "name": "独活",
+          "weight": "27"
+        },
+        {
+          "name": "炒桃仁",
+          "weight": "38"
+        },
+        {
+          "name": "透骨草",
+          "weight": "23"
+        },
+        {
+          "name": "夏枯草",
+          "weight": "11"
+        },
+        {
+          "name": "生黄芪",
+          "weight": "24"
+        },
+        {
+          "name": "炒白术",
+          "weight": "33"
+        },
+        {
+          "name": "草决明",
+          "weight": "18"
+        },
+        {
+          "name": "茯苓",
+          "weight": "31"
+        },
+        {
+          "name": "白芍",
+          "weight": "37"
+        },
+        {
+          "name": "浮小麦",
+          "weight": "10"
+        }
+      ],
+      "timestamp": "2025-07-21T11:18:42.223Z"
+    }
+  ],
+  "electronic": [
+    {
+      "id": "202507250011",
+      "patientName": "斛项零",
+      "type": "electronic",
+      "title": "电子药单",
+      "status": "done",
+      "dispensingStatus": "dispensed",
+      "image": "/images/presc_1753443144367_9753.jpeg",
+      "copies": 2,
+      "medicines": [
+        {
+          "name": "制草乌",
+          "weight": "10"
+        },
+        {
+          "name": "羌活",
+          "weight": "10"
+        },
+        {
+          "name": "独活",
+          "weight": "10"
+        },
+        {
+          "name": "炒桃仁",
+          "weight": "10"
+        },
+        {
+          "name": "透骨草",
+          "weight": "10"
+        },
+        {
+          "name": "夏枯草",
+          "weight": "10"
+        },
+        {
+          "name": "生黄芪",
+          "weight": "10"
+        },
+        {
+          "name": "炒白术",
+          "weight": "10"
+        }
+      ],
+      "timestamp": "2025-07-25T11:32:24.368Z",
+      "actualMedicines": [
+        [
+          {
+            "name": "zhicaowu",
+            "weight": 10
+          },
+          {
+            "name": "qianghuo",
+            "weight": 10
+          },
+          {
+            "name": "duhuo",
+            "weight": 10
+          },
+          {
+            "name": "chaotaoren",
+            "weight": 10
+          },
+          {
+            "name": "tougucao",
+            "weight": 10
+          },
+          {
+            "name": "xiakucao",
+            "weight": 10
+          },
+          {
+            "name": "shenghuangqi",
+            "weight": 10
+          },
+          {
+            "name": "chaobaishu",
+            "weight": 10
+          }
+        ],
+        [
+          {
+            "name": "zhicaowu",
+            "weight": 10
+          },
+          {
+            "name": "qianghuo",
+            "weight": 10
+          },
+          {
+            "name": "duhuo",
+            "weight": 10
+          },
+          {
+            "name": "chaotaoren",
+            "weight": 10
+          },
+          {
+            "name": "tougucao",
+            "weight": 10
+          },
+          {
+            "name": "xiakucao",
+            "weight": 10
+          },
+          {
+            "name": "shenghuangqi",
+            "weight": 10
+          },
+          {
+            "name": "chaobaishu",
+            "weight": 10
+          }
+        ]
+      ],
+      "actualCopies": 2
+    },
+    {
+      "id": "202507250010",
+      "patientName": "斛翔零",
+      "type": "electronic",
+      "title": "电子药单",
+      "status": "done",
+      "dispensingStatus": "dispensed",
+      "image": "/images/presc_1753441763284_2678.jpeg",
+      "copies": 2,
+      "medicines": [
+        {
+          "name": "制草乌",
+          "weight": "10"
+        },
+        {
+          "name": "羌活",
+          "weight": "10"
+        },
+        {
+          "name": "独活",
+          "weight": "10"
+        },
+        {
+          "name": "炒桃仁",
+          "weight": "10"
+        },
+        {
+          "name": "透骨草",
+          "weight": "10"
+        },
+        {
+          "name": "夏枯草",
+          "weight": "10"
+        },
+        {
+          "name": "生黄芪",
+          "weight": "10"
+        },
+        {
+          "name": "炒白术",
+          "weight": "10"
+        }
+      ],
+      "timestamp": "2025-07-25T11:09:23.285Z",
+      "actualMedicines": [
+        [
+          {
+            "name": "zhicaowu",
+            "weight": 0
+          },
+          {
+            "name": "qianghuo",
+            "weight": 0
+          },
+          {
+            "name": "duhuo",
+            "weight": 0
+          },
+          {
+            "name": "chaotaoren",
+            "weight": 0
+          },
+          {
+            "name": "tougucao",
+            "weight": 0
+          },
+          {
+            "name": "xiakucao",
+            "weight": 0
+          },
+          {
+            "name": "shenghuangqi",
+            "weight": 0
+          },
+          {
+            "name": "chaobaishu",
+            "weight": 0
+          }
+        ],
+        [
+          {
+            "name": "zhicaowu",
+            "weight": 0
+          },
+          {
+            "name": "qianghuo",
+            "weight": 0
+          },
+          {
+            "name": "duhuo",
+            "weight": 0
+          },
+          {
+            "name": "chaotaoren",
+            "weight": 0
+          },
+          {
+            "name": "tougucao",
+            "weight": 0
+          },
+          {
+            "name": "xiakucao",
+            "weight": 0
+          },
+          {
+            "name": "shenghuangqi",
+            "weight": 0
+          },
+          {
+            "name": "chaobaishu",
+            "weight": 0
+          }
+        ]
+      ],
+      "actualCopies": 2
+    },
+    {
+      "id": "202507250009",
+      "patientName": "傅翔零",
+      "type": "electronic",
+      "title": "电子药单",
+      "status": "done",
+      "dispensingStatus": "dispensed",
+      "image": "/images/presc_1753440435748_2690.jpeg",
+      "copies": 2,
+      "medicines": [
+        {
+          "name": "制草乌",
+          "weight": "10"
+        },
+        {
+          "name": "羌活",
+          "weight": "10"
+        },
+        {
+          "name": "独活",
+          "weight": "10"
+        },
+        {
+          "name": "炒桃仁",
+          "weight": "10"
+        },
+        {
+          "name": "透骨草",
+          "weight": "10"
+        },
+        {
+          "name": "夏枯草",
+          "weight": "10"
+        },
+        {
+          "name": "生黄芪",
+          "weight": "10"
+        },
+        {
+          "name": "炒白术",
+          "weight": "10"
+        }
+      ],
+      "timestamp": "2025-07-25T10:47:15.748Z",
+      "actualMedicines": [
+        [
+          {
+            "name": "zhicaowu",
+            "weight": 0
+          },
+          {
+            "name": "qianghuo",
+            "weight": 0
+          },
+          {
+            "name": "duhuo",
+            "weight": 0
+          },
+          {
+            "name": "chaotaoren",
+            "weight": 0
+          },
+          {
+            "name": "tougucao",
+            "weight": 0
+          },
+          {
+            "name": "xiakucao",
+            "weight": 0
+          },
+          {
+            "name": "shenghuangqi",
+            "weight": 0
+          },
+          {
+            "name": "chaobaishu",
+            "weight": 0
+          }
+        ],
+        [
+          {
+            "name": "zhicaowu",
+            "weight": 0
+          },
+          {
+            "name": "qianghuo",
+            "weight": 0
+          },
+          {
+            "name": "duhuo",
+            "weight": 0
+          },
+          {
+            "name": "chaotaoren",
+            "weight": 0
+          },
+          {
+            "name": "tougucao",
+            "weight": 0
+          },
+          {
+            "name": "xiakucao",
+            "weight": 0
+          },
+          {
+            "name": "shenghuangqi",
+            "weight": 0
+          },
+          {
+            "name": "chaobaishu",
+            "weight": 0
+          }
+        ]
+      ],
+      "actualCopies": 2
+    },
+    {
+      "id": "202507250008",
+      "patientName": "湖翔零",
+      "type": "electronic",
+      "title": "电子药单",
+      "status": "done",
+      "dispensingStatus": "dispensed",
+      "image": "/images/presc_1753438962377_9.jpeg",
+      "copies": 2,
+      "medicines": [
+        {
+          "name": "制草乌",
+          "weight": "10"
+        },
+        {
+          "name": "羌活",
+          "weight": "10"
+        },
+        {
+          "name": "独活",
+          "weight": "10"
+        },
+        {
+          "name": "炒桃仁",
+          "weight": "10"
+        },
+        {
+          "name": "透骨草",
+          "weight": "10"
+        },
+        {
+          "name": "夏枯草",
+          "weight": "10"
+        },
+        {
+          "name": "生黄芪",
+          "weight": "10"
+        },
+        {
+          "name": "炒白术",
+          "weight": "10"
+        }
+      ],
+      "timestamp": "2025-07-25T10:22:42.377Z",
+      "actualMedicines": [
+        [
+          {
+            "name": "zhicaowu",
+            "weight": 0
+          },
+          {
+            "name": "qianghuo",
+            "weight": 0
+          },
+          {
+            "name": "duhuo",
+            "weight": 0
+          },
+          {
+            "name": "chaotaoren",
+            "weight": 0
+          },
+          {
+            "name": "tougucao",
+            "weight": 0
+          },
+          {
+            "name": "xiakucao",
+            "weight": 0
+          },
+          {
+            "name": "shenghuangqi",
+            "weight": 0
+          },
+          {
+            "name": "chaobaishu",
+            "weight": 0
+          }
+        ],
+        [
+          {
+            "name": "zhicaowu",
+            "weight": 0
+          },
+          {
+            "name": "qianghuo",
+            "weight": 0
+          },
+          {
+            "name": "duhuo",
+            "weight": 0
+          },
+          {
+            "name": "chaotaoren",
+            "weight": 0
+          },
+          {
+            "name": "tougucao",
+            "weight": 0
+          },
+          {
+            "name": "xiakucao",
+            "weight": 0
+          },
+          {
+            "name": "shenghuangqi",
+            "weight": 0
+          },
+          {
+            "name": "chaobaishu",
+            "weight": 0
+          }
+        ]
+      ],
+      "actualCopies": 2
+    },
+    {
+      "id": "202507250007",
+      "patientName": "湖翔零",
+      "type": "electronic",
+      "title": "电子药单",
+      "status": "done",
+      "dispensingStatus": "dispensed",
+      "image": "/images/presc_1753433898472_95.jpeg",
+      "copies": 2,
+      "medicines": [
+        {
+          "name": "制草乌",
+          "weight": "10"
+        },
+        {
+          "name": "羌活",
+          "weight": "10"
+        },
+        {
+          "name": "独活",
+          "weight": "10"
+        },
+        {
+          "name": "炒桃仁",
+          "weight": "10"
+        },
+        {
+          "name": "透骨草",
+          "weight": "10"
+        },
+        {
+          "name": "夏枯草",
+          "weight": "10"
+        },
+        {
+          "name": "生黄芪",
+          "weight": "10"
+        },
+        {
+          "name": "炒白术",
+          "weight": "10"
+        }
+      ],
+      "timestamp": "2025-07-25T08:58:18.473Z",
+      "actualMedicines": [
+        [
+          {
+            "name": "zhicaowu",
+            "weight": 0
+          },
+          {
+            "name": "qianghuo",
+            "weight": 0
+          },
+          {
+            "name": "duhuo",
+            "weight": 0
+          },
+          {
+            "name": "chaotaoren",
+            "weight": 0
+          },
+          {
+            "name": "tougucao",
+            "weight": 0
+          },
+          {
+            "name": "xiakucao",
+            "weight": 0
+          },
+          {
+            "name": "shenghuangqi",
+            "weight": 0
+          },
+          {
+            "name": "chaobaishu",
+            "weight": 0
+          }
+        ]
+      ],
+      "actualCopies": 2
+    },
+    {
+      "id": "202507250006",
+      "patientName": "胡翔林",
+      "type": "electronic",
+      "title": "电子药单",
+      "status": "done",
+      "dispensingStatus": "dispensed",
+      "image": "/images/presc_1753433134542_6997.jpeg",
+      "copies": 2,
+      "medicines": [
+        {
+          "name": "制草乌",
+          "weight": "10"
+        },
+        {
+          "name": "羌活",
+          "weight": "10"
+        },
+        {
+          "name": "独活",
+          "weight": "10"
+        },
+        {
+          "name": "炒桃仁",
+          "weight": "10"
+        },
+        {
+          "name": "透骨草",
+          "weight": "10"
+        },
+        {
+          "name": "夏枯草",
+          "weight": "10"
+        },
+        {
+          "name": "生黄芪",
+          "weight": "10"
+        },
+        {
+          "name": "炒白术",
+          "weight": "10"
+        }
+      ],
+      "timestamp": "2025-07-25T08:45:34.544Z",
+      "actualMedicines": [
+        [
+          {
+            "name": "zhicaowu",
+            "weight": 0
+          },
+          {
+            "name": "qianghuo",
+            "weight": 0
+          },
+          {
+            "name": "duhuo",
+            "weight": 0
+          },
+          {
+            "name": "chaotaoren",
+            "weight": 0
+          },
+          {
+            "name": "tougucao",
+            "weight": 0
+          },
+          {
+            "name": "xiakucao",
+            "weight": 0
+          },
+          {
+            "name": "shenghuangqi",
+            "weight": 0
+          },
+          {
+            "name": "chaobaishu",
+            "weight": 0
+          }
+        ]
+      ],
+      "actualCopies": 2
+    },
+    {
+      "id": "202507250005",
+      "patientName": "胡翔林",
+      "type": "electronic",
+      "title": "电子药单",
+      "status": "done",
+      "dispensingStatus": "dispensed",
+      "image": "/images/presc_1753431925649_1434.jpeg",
+      "copies": 2,
+      "medicines": [
+        {
+          "name": "制草乌",
+          "weight": "10"
+        },
+        {
+          "name": "羌活",
+          "weight": "10"
+        },
+        {
+          "name": "独活",
+          "weight": "10"
+        },
+        {
+          "name": "炒桃仁",
+          "weight": "10"
+        },
+        {
+          "name": "透骨草",
+          "weight": "10"
+        },
+        {
+          "name": "夏枯草",
+          "weight": "10"
+        },
+        {
+          "name": "生黄芪",
+          "weight": "10"
+        },
+        {
+          "name": "炒白术",
+          "weight": "10"
+        }
+      ],
+      "timestamp": "2025-07-25T08:25:25.650Z",
+      "actualMedicines": [
+        [
+          {
+            "name": "zhicaowu",
+            "weight": 0
+          },
+          {
+            "name": "qianghuo",
+            "weight": 0
+          },
+          {
+            "name": "duhuo",
+            "weight": 0
+          },
+          {
+            "name": "chaotaoren",
+            "weight": 0
+          },
+          {
+            "name": "tougucao",
+            "weight": 0
+          },
+          {
+            "name": "xiakucao",
+            "weight": 0
+          },
+          {
+            "name": "shenghuangqi",
+            "weight": 0
+          },
+          {
+            "name": "chaobaishu",
+            "weight": 0
+          }
+        ]
+      ],
+      "actualCopies": 2
+    },
+    {
+      "id": "202507250004",
+      "patientName": "刘翔林",
+      "type": "electronic",
+      "title": "电子药单",
+      "status": "done",
+      "dispensingStatus": "dispensed",
+      "image": "/images/presc_1753429382953_7991.jpeg",
+      "copies": 2,
+      "medicines": [
+        {
+          "name": "制草乌",
+          "weight": "10"
+        },
+        {
+          "name": "羌活",
+          "weight": "10"
+        },
+        {
+          "name": "独活",
+          "weight": "10"
+        },
+        {
+          "name": "炒桃仁",
+          "weight": "10"
+        },
+        {
+          "name": "透骨草",
+          "weight": "10"
+        },
+        {
+          "name": "夏枯草",
+          "weight": "10"
+        },
+        {
+          "name": "生黄芪",
+          "weight": "10"
+        },
+        {
+          "name": "炒白术",
+          "weight": "10"
+        }
+      ],
+      "timestamp": "2025-07-25T07:43:02.954Z",
+      "actualMedicines": [
+        {
+          "name": "zhicaowu",
+          "weight": 0
+        },
+        {
+          "name": "qianghuo",
+          "weight": 0
+        },
+        {
+          "name": "duhuo",
+          "weight": 0
+        },
+        {
+          "name": "chaotaoren",
+          "weight": 0
+        },
+        {
+          "name": "tougucao",
+          "weight": 0
+        },
+        {
+          "name": "xiakucao",
+          "weight": 0
+        },
+        {
+          "name": "shenghuangqi",
+          "weight": 0
+        },
+        {
+          "name": "chaobaishu",
+          "weight": 0
+        }
+      ],
+      "actualCopies": 2
+    },
+    {
+      "id": "202507250003",
+      "patientName": "刘翔林",
+      "type": "electronic",
+      "title": "电子药单",
+      "status": "done",
+      "dispensingStatus": "dispensed",
+      "image": "/images/presc_1753428802763_4345.jpeg",
+      "copies": 3,
+      "medicines": [
+        {
+          "name": "制草乌",
+          "weight": "10"
+        },
+        {
+          "name": "羌活",
+          "weight": "10"
+        },
+        {
+          "name": "独活",
+          "weight": "10"
+        },
+        {
+          "name": "炒桃仁",
+          "weight": "10"
+        },
+        {
+          "name": "透骨草",
+          "weight": "10"
+        },
+        {
+          "name": "夏枯草",
+          "weight": "10"
+        },
+        {
+          "name": "生黄芪",
+          "weight": "10"
+        },
+        {
+          "name": "炒白术",
+          "weight": "10"
+        }
+      ],
+      "timestamp": "2025-07-25T07:33:22.764Z",
+      "actualMedicines": [
+        {
+          "name": "zhicaowu",
+          "weight": 0
+        },
+        {
+          "name": "qianghuo",
+          "weight": 0
+        },
+        {
+          "name": "duhuo",
+          "weight": 0
+        },
+        {
+          "name": "chaotaoren",
+          "weight": 0
+        },
+        {
+          "name": "tougucao",
+          "weight": 0
+        },
+        {
+          "name": "xiakucao",
+          "weight": 0
+        },
+        {
+          "name": "shenghuangqi",
+          "weight": 0
+        },
+        {
+          "name": "chaobaishu",
+          "weight": 0
+        }
+      ],
+      "actualCopies": 3
+    },
+    {
+      "id": "202507250002",
+      "patientName": "六尽情",
+      "type": "electronic",
+      "title": "电子药单",
+      "status": "done",
+      "dispensingStatus": "dispensed",
+      "image": "/images/presc_1753428214924_1606.jpeg",
+      "copies": 3,
+      "medicines": [
+        {
+          "name": "制草乌",
+          "weight": "10"
+        },
+        {
+          "name": "羌活",
+          "weight": "10"
+        },
+        {
+          "name": "独活",
+          "weight": "10"
+        },
+        {
+          "name": "炒桃仁",
+          "weight": "10"
+        },
+        {
+          "name": "透骨草",
+          "weight": "10"
+        },
+        {
+          "name": "夏枯草",
+          "weight": "10"
+        },
+        {
+          "name": "生黄芪",
+          "weight": "10"
+        },
+        {
+          "name": "炒白术",
+          "weight": "10"
+        }
+      ],
+      "timestamp": "2025-07-25T07:23:34.924Z",
+      "actualMedicines": [
+        {
+          "name": "zhicaowu",
+          "weight": 0
+        },
+        {
+          "name": "qianghuo",
+          "weight": 0
+        },
+        {
+          "name": "duhuo",
+          "weight": 0
+        },
+        {
+          "name": "chaotaoren",
+          "weight": 0
+        },
+        {
+          "name": "tougucao",
+          "weight": 0
+        },
+        {
+          "name": "xiakucao",
+          "weight": 0
+        },
+        {
+          "name": "shenghuangqi",
+          "weight": 0
+        },
+        {
+          "name": "chaobaishu",
+          "weight": 0
+        }
+      ],
+      "actualCopies": 3
+    },
+    {
+      "id": "202507250001",
+      "patientName": "张三",
+      "type": "electronic",
+      "title": "电子药单",
+      "status": "done",
+      "dispensingStatus": "dispensed",
+      "image": "/images/presc_1753384453882_2649.jpeg",
+      "copies": 3,
+      "medicines": [
+        {
+          "name": "制草乌",
+          "weight": "10"
+        },
+        {
+          "name": "羌活",
+          "weight": "10"
+        },
+        {
+          "name": "独活",
+          "weight": "10"
+        },
+        {
+          "name": "炒桃仁",
+          "weight": "10"
+        },
+        {
+          "name": "透骨草",
+          "weight": "10"
+        },
+        {
+          "name": "夏枯草",
+          "weight": "10"
+        },
+        {
+          "name": "生黄芪",
+          "weight": "10"
+        },
+        {
+          "name": "炒白术",
+          "weight": "10"
+        }
+      ],
+      "timestamp": "2025-07-24T19:14:13.885Z",
+      "actualMedicines": [
+        {
+          "name": "zhicaowu",
+          "weight": 0
+        },
+        {
+          "name": "qianghuo",
+          "weight": 0
+        },
+        {
+          "name": "duhuo",
+          "weight": 0
+        },
+        {
+          "name": "chaotaoren",
+          "weight": 0
+        },
+        {
+          "name": "tougucao",
+          "weight": 0
+        },
+        {
+          "name": "xiakucao",
+          "weight": 0
+        },
+        {
+          "name": "shenghuangqi",
+          "weight": 0
+        },
+        {
+          "name": "chaobaishu",
+          "weight": 0
+        }
+      ],
+      "actualCopies": 3
+    },
+    {
+      "id": "202507240002",
+      "patientName": "张三",
+      "type": "electronic",
+      "title": "电子药单",
+      "status": "done",
+      "dispensingStatus": "dispensed",
+      "image": "/images/presc_1753368883083_9892.jpeg",
+      "copies": 3,
+      "medicines": [
+        {
+          "name": "制草乌",
+          "weight": "10"
+        },
+        {
+          "name": "羌活",
+          "weight": "10"
+        },
+        {
+          "name": "独活",
+          "weight": "10"
+        },
+        {
+          "name": "炒桃仁",
+          "weight": "10"
+        },
+        {
+          "name": "透骨草",
+          "weight": "10"
+        },
+        {
+          "name": "夏枯草",
+          "weight": "10"
+        },
+        {
+          "name": "生黄芪",
+          "weight": "10"
+        },
+        {
+          "name": "炒白术",
+          "weight": "10"
+        }
+      ],
+      "timestamp": "2025-07-24T14:54:43.084Z",
+      "actualMedicines": [
+        {
+          "name": "zhicaowu",
+          "weight": 0
+        },
+        {
+          "name": "qianghuo",
+          "weight": 0
+        },
+        {
+          "name": "duhuo",
+          "weight": 0
+        },
+        {
+          "name": "chaotaoren",
+          "weight": 0
+        },
+        {
+          "name": "tougucao",
+          "weight": 0
+        },
+        {
+          "name": "xiakucao",
+          "weight": 0
+        },
+        {
+          "name": "shenghuangqi",
+          "weight": 0
+        },
+        {
+          "name": "chaobaishu",
+          "weight": 0
+        }
+      ],
+      "actualCopies": 3
+    },
+    {
+      "id": "202507240001",
+      "patientName": "张三",
+      "type": "electronic",
+      "title": "电子药单",
+      "status": "done",
+      "dispensingStatus": "dispensed",
+      "image": "/images/presc_1753364592400_3369.jpeg",
+      "copies": 3,
+      "medicines": [
+        {
+          "name": "制草乌",
+          "weight": "10"
+        },
+        {
+          "name": "羌活",
+          "weight": "10"
+        },
+        {
+          "name": "独活",
+          "weight": "10"
+        },
+        {
+          "name": "炒桃仁",
+          "weight": "10"
+        },
+        {
+          "name": "透骨草",
+          "weight": "10"
+        },
+        {
+          "name": "夏枯草",
+          "weight": "10"
+        },
+        {
+          "name": "生黄芪",
+          "weight": "10"
+        },
+        {
+          "name": "炒白术",
+          "weight": "10"
+        }
+      ],
+      "timestamp": "2025-07-24T13:43:12.405Z",
+      "actualMedicines": [
+        {
+          "name": "zhicaowu",
+          "weight": 0
+        },
+        {
+          "name": "qianghuo",
+          "weight": 0
+        },
+        {
+          "name": "duhuo",
+          "weight": 0
+        },
+        {
+          "name": "chaotaoren",
+          "weight": 0
+        },
+        {
+          "name": "tougucao",
+          "weight": 0
+        },
+        {
+          "name": "xiakucao",
+          "weight": 0
+        },
+        {
+          "name": "shenghuangqi",
+          "weight": 0
+        },
+        {
+          "name": "chaobaishu",
+          "weight": 0
+        }
+      ],
+      "actualCopies": 4
+    },
+    {
+      "id": "202507220001",
+      "patientName": "相林",
+      "type": "electronic",
+      "title": "电子药单",
+      "status": "done",
+      "dispensingStatus": "dispensed",
+      "image": "/images/presc_1753167568519_1634.jpeg",
+      "copies": 2,
+      "medicines": [
+        {
+          "name": "制草乌",
+          "weight": "10"
+        },
+        {
+          "name": "羌活",
+          "weight": "10"
+        },
+        {
+          "name": "独活",
+          "weight": "10"
+        },
+        {
+          "name": "炒桃仁",
+          "weight": "10"
+        },
+        {
+          "name": "透骨草",
+          "weight": "10"
+        },
+        {
+          "name": "夏枯草",
+          "weight": "10"
+        },
+        {
+          "name": "生黄芪",
+          "weight": "10"
+        },
+        {
+          "name": "炒白术",
+          "weight": "10"
+        }
+      ],
+      "timestamp": "2025-07-22T06:59:28.523Z",
+      "actualMedicines": [
+        {
+          "name": "zhicaowu",
+          "weight": 0
+        },
+        {
+          "name": "qianghuo",
+          "weight": 0
+        },
+        {
+          "name": "duhuo",
+          "weight": 0
+        },
+        {
+          "name": "chaotaoren",
+          "weight": 0
+        },
+        {
+          "name": "tougucao",
+          "weight": 0
+        },
+        {
+          "name": "xiakucao",
+          "weight": 0
+        },
+        {
+          "name": "shenghuangqi",
+          "weight": 0
+        },
+        {
+          "name": "chaobaishu",
+          "weight": 0
+        }
+      ],
+      "actualCopies": 1
+    }
+  ]
+}

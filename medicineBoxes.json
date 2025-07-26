@@ -1,0 +1,146 @@
+[
+  {
+    "id": "1",
+    "name": "制草乌",
+    "level": 80,
+    "status": "正常",
+    "statusClass": "status-normal",
+    "icon": "check-circle",
+    "levelClass": "level-normal"
+  },
+  {
+    "id": "2",
+    "name": "羌活",
+    "level": 80,
+    "status": "正常",
+    "statusClass": "status-normal",
+    "icon": "check-circle",
+    "levelClass": "level-normal"
+  },
+  {
+    "id": "3",
+    "name": "独活",
+    "level": 80,
+    "status": "正常",
+    "statusClass": "status-normal",
+    "icon": "check-circle",
+    "levelClass": "level-normal"
+  },
+  {
+    "id": "4",
+    "name": "炒桃仁",
+    "level": 20,
+    "status": "注意",
+    "statusClass": "status-warning",
+    "icon": "exclamation-triangle",
+    "levelClass": "level-warning"
+  },
+  {
+    "id": "5",
+    "name": "透骨草",
+    "level": 80,
+    "status": "正常",
+    "statusClass": "status-normal",
+    "icon": "check-circle",
+    "levelClass": "level-normal"
+  },
+  {
+    "id": "6",
+    "name": "夏枯草",
+    "level": 80,
+    "status": "正常",
+    "statusClass": "status-normal",
+    "icon": "check-circle",
+    "levelClass": "level-normal"
+  },
+  {
+    "id": "7",
+    "name": "生黄芪",
+    "level": 80,
+    "status": "正常",
+    "statusClass": "status-normal",
+    "icon": "check-circle",
+    "levelClass": "level-normal"
+  },
+  {
+    "id": "8",
+    "name": "炒白术",
+    "level": 80,
+    "status": "正常",
+    "statusClass": "status-normal",
+    "icon": "check-circle",
+    "levelClass": "level-normal"
+  },
+  {
+    "id": "9",
+    "name": "草决明",
+    "level": 80,
+    "status": "正常",
+    "statusClass": "status-normal",
+    "icon": "check-circle",
+    "levelClass": "level-normal"
+  },
+  {
+    "id": "10",
+    "name": "桔梗",
+    "level": 80,
+    "status": "正常",
+    "statusClass": "status-normal",
+    "icon": "check-circle",
+    "levelClass": "level-normal"
+  },
+  {
+    "id": "11",
+    "name": "茯苓",
+    "level": 80,
+    "status": "正常",
+    "statusClass": "status-normal",
+    "icon": "check-circle",
+    "levelClass": "level-normal"
+  },
+  {
+    "id": "12",
+    "name": "当归",
+    "level": 80,
+    "status": "正常",
+    "statusClass": "status-normal",
+    "icon": "check-circle",
+    "levelClass": "level-normal"
+  },
+  {
+    "id": "13",
+    "name": "白芍",
+    "level": 80,
+    "status": "正常",
+    "statusClass": "status-normal",
+    "icon": "check-circle",
+    "levelClass": "level-normal"
+  },
+  {
+    "id": "14",
+    "name": "川穹",
+    "level": 80,
+    "status": "正常",
+    "statusClass": "status-normal",
+    "icon": "check-circle",
+    "levelClass": "level-normal"
+  },
+  {
+    "id": "15",
+    "name": "浮小麦",
+    "level": 80,
+    "status": "正常",
+    "statusClass": "status-normal",
+    "icon": "check-circle",
+    "levelClass": "level-normal"
+  },
+  {
+    "id": "16",
+    "name": "金银花",
+    "level": 80,
+    "status": "正常",
+    "statusClass": "status-normal",
+    "icon": "check-circle",
+    "levelClass": "level-normal"
+  }
+]

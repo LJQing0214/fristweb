@@ -1,0 +1,143 @@
+<style>
+    :root {
+        --primary-color: #4CAF50;
+        --primary-dark: #388E3C;
+        --menu-bg: #263445;
+        --menu-hover: #3a4a5e;
+        --text-light: #ECF0F1;
+        --text-gray: #BDC3C7;
+        --shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .nav-menu {
+        background-color: var(--menu-bg);
+        width: 250px;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        box-shadow: var(--shadow);
+        z-index: 1000;
+        transition: all 0.3s ease;
+        border-top-right-radius: 16px;
+        border-bottom-right-radius: 16px;
+        overflow: hidden;
+    }
+    .menu-header {
+        padding: 32px 0 20px 0;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.08);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .menu-header h2 {
+        color: white;
+        font-size: 1.5rem;
+        margin-bottom: 6px;
+        letter-spacing: 1px;
+    }
+    .menu-header p {
+        color: var(--text-gray);
+        font-size: 0.9rem;
+    }
+    .nav-menu a {
+        color: var(--text-light);
+        padding: 18px 32px;
+        text-decoration: none;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        position: relative;
+        font-weight: 500;
+        font-size: 1.13rem;
+        letter-spacing: 0.5px;
+        border-left: 4px solid transparent;
+    }
+    .nav-menu a:not(.logout):before {
+        display: none;
+    }
+    .nav-menu a:hover {
+        background-color: var(--menu-hover);
+        color: #fff;
+        border-left: 4px solid var(--primary-color);
+        font-weight: 600;
+    }
+    .nav-menu a.active {
+        background: #4CAF50;
+        color: #fff !important;
+        font-weight: bold;
+        border-radius: 6px;
+    }
+    .nav-menu a i {
+        margin-right: 16px;
+        font-size: 1.25rem;
+        width: 24px;
+        text-align: center;
+    }
+    .nav-menu a.logout {
+        margin-top: auto;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        background-color: rgba(0, 0, 0, 0.12);
+        color: #E74C3C;
+        font-weight: 600;
+    }
+    .nav-menu a.logout:hover {
+        background-color: #E74C3C;
+        color: white;
+    }
+    @media (max-width: 768px) {
+        .nav-menu {
+            transform: translateX(-100%);
+            width: 280px;
+        }
+        .nav-menu.active {
+            transform: translateX(0);
+        }
+        .menu-toggle {
+            display: block;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1100;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<!-- 移动端菜单切换按钮 -->
+<button class="menu-toggle" onclick="toggleMenu()">☰</button>
+<!-- 导航菜单 -->
+<div class="nav-menu">
+    <div class="menu-header">
+        <h2>中药配药系统</h2>
+        <p>v1.0.0</p>
+    </div>
+    <a href="prescription.html"><i class="fas fa-prescription-bottle-alt"></i>药单识别</a>
+    <a href="dispensing.html"><i class="fas fa-cogs"></i>配药监控</a>
+    <a href="status.html"><i class="fas fa-box-open"></i>药箱状态</a>
+    <a href="records.html"><i class="fas fa-clipboard-list"></i>配药记录</a>
+    <a href="#" class="logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i>退出登录</a>
+</div>
+<script>
+window.logout = function() {
+    localStorage.removeItem('isLoggedIn');
+    window.location.href = 'login.html';
+}
+function toggleMenu() {
+    document.querySelector('.nav-menu').classList.toggle('active');
+}
+</script>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>配药记录 - 中药配药系统</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #388E3C;
+            --secondary-color: #f0ad4e;
+            --danger-color: #d9534f;
+            --light-gray: #f5f5f5;
+            --border-color: #ddd;
+            --text-color: #333;
+            --text-light: #777;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        body {
+            margin-left: 250px;
+            background: linear-gradient(120deg, #f9f9f9 60%, #e8f5e9 100%);
+            color: var(--text-color);
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+        }
+        .main-container {
+            padding: 40px 30px 30px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 32px rgba(76,175,80,0.08);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1.5px solid var(--primary-color);
+        }
+        .header h2 {
+            color: var(--primary-dark);
+            font-size: 26px;
+            letter-spacing: 2px;
+        }
+        .search-bar {
+            margin-bottom: 24px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            background: #f5f5f5;
+            padding: 16px 20px;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(76,175,80,0.04);
+        }
+        .search-bar label {
+            font-size: 15px;
+            color: var(--primary-dark);
+        }
+        .search-bar input, .search-bar select {
+            margin-left: 6px;
+            padding: 5px 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 15px;
+        }
+        .search-bar button {
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 6px 18px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .search-bar button:hover {
+            background: var(--primary-dark);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 13px 15px;
+            text-align: left;
+            font-size: 15px;
+        }
+        th {
+            background-color: #e8f5e9;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        tr:hover {
+            background-color: #f0f0f0;
+        }
+        .details-btn {
+            background: var(--secondary-color);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 14px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .details-btn:hover {
+            background: #ec971f;
+        }
+        /* 弹窗样式 */
+        #detailsModal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0; top: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.45);
+            justify-content: center;
+            align-items: center;
+        }
+        #detailsModal .modal-content {
+            background: #fff;
+            border-radius: 16px;
+            padding: 36px 32px 32px 32px;
+            min-width: 400px;
+            max-width: 90vw;
+            width: auto;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 40px rgba(76,175,80,0.13);
+            position: relative;
+            /* 保证内容不会超出弹窗 */
+        }
+        #detailsModal .close {
+            position: absolute;
+            right: 18px;
+            top: 12px;
+            font-size: 22px;
+            color: #888;
+            cursor: pointer;
+        }
+        #detailsModal h3 {
+            margin-top: 0;
+            color: var(--primary-dark);
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #e8f5e9 60%, #fff 100%);
+            padding: 12px 0 12px 18px;
+            border-radius: 8px 8px 0 0;
+            border-bottom: 2px solid #4CAF5022;
+            margin-bottom: 22px;
+        }
+        #detailsModal .modal-row {
+            margin-bottom: 12px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+        #detailsModal .modal-row span {
+            color: #388E3C;
+            font-weight: bold;
+            margin-right: 8px;
+            min-width: 90px;
+            display: inline-block;
+        }
+        #detailsModal .modal-img {
+            display: block;
+            margin: 18px auto 22px auto;
+            max-width: 260px;
+            max-height: 200px;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+        }
+        #detailsModal .medicines-section {
+            margin: 18px 0 10px 0;
+            padding: 12px 18px 10px 18px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF5044;
+        }
+        #detailsModal .medicines-section-title {
+            font-size: 16px;
+            color: var(--primary-dark);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        #detailsModal ul {
+            margin: 0 0 0 10px;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 6px 18px;
+        }
+        #detailsModal li {
+            font-size: 15px;
+            margin-bottom: 3px;
+            list-style: disc inside;
+        }
+    </style>
+</head>
+<body>
+    <div id="nav-menu-container"></div>
+    <div class="main-container">
+        <div class="header">
+            <h2>配药记录</h2>
+        </div>
+        <!-- 搜索栏 -->
+        <div class="search-bar">
+            <label>日期：<input type="date" id="searchDate"></label>
+            <label>姓名：<input type="text" id="searchName" placeholder="患者姓名"></label>
+            <label>类型：
+                <select id="searchType">
+                    <option value="">全部</option>
+                    <option value="handwritten">手写</option>
+                    <option value="electronic">电子</option>
+                </select>
+            </label>
+            <button id="clearSearch" type="button">重置</button>
+        </div>
+        <table id="recordsTable">
+            <thead>
+                <tr>
+                    <th>记录ID</th>
+                    <th>患者姓名</th>
+                    <th>药单类型</th>
+                    <th>药单详情</th>
+                    <th>配药时间</th>
+                </tr>
+            </thead>
+            <tbody id="recordsBody">
+                <!-- 动态渲染 -->
+            </tbody>
+        </table>
+        <!-- 药单详情弹窗 -->
+        <div id="detailsModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeDetailsModal()">&times;</span>
+                <div id="detailsContent"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 登录校验和菜单加载
+        if (!localStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        } else {
+            fetch('menu.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('nav-menu-container').innerHTML = html;
+                    highlightActiveMenu();
+                });
+        }
+        function highlightActiveMenu() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const menuItems = document.querySelectorAll('.nav-menu a:not(.logout)');
+            menuItems.forEach(item => {
+                if (item.getAttribute('href') === currentPage) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+        window.logout = function() {
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = 'login.html';
+        }
+
+        // ========== 新增：加载药单记录 ========== 
+        let allRecords = [];
+        function renderRecords(records) {
+            const tbody = document.getElementById('recordsBody');
+            tbody.innerHTML = '';
+            if (!records || records.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5">暂无药单记录</td></tr>';
+                return;
+            }
+            records.forEach((rec, idx) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${rec.id || ''}</td>
+                    <td>${rec.patientName || ''}</td>
+                    <td>${rec.type === 'handwritten' ? '手写' : '电子'}</td>
+                    <td><button class="details-btn" onclick="showDetailsModal(${idx})">药单详情</button></td>
+                    <td>${rec.timestamp ? new Date(rec.timestamp).toLocaleString() : ''}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterRecords() {
+            const dateVal = document.getElementById('searchDate').value;
+            const nameVal = document.getElementById('searchName').value.trim();
+            const typeVal = document.getElementById('searchType').value;
+            let filtered = allRecords;
+            if (dateVal) {
+                filtered = filtered.filter(r => {
+                    if (!r.timestamp) return false;
+                    const d = new Date(r.timestamp);
+                    const y = d.getFullYear();
+                    const m = String(d.getMonth()+1).padStart(2,'0');
+                    const day = String(d.getDate()).padStart(2,'0');
+                    const recDate = `${y}-${m}-${day}`;
+                    return recDate === dateVal;
+                });
+            }
+            if (nameVal) {
+                filtered = filtered.filter(r => (r.patientName||'').includes(nameVal));
+            }
+            if (typeVal) {
+                filtered = filtered.filter(r => r.type === typeVal);
+            }
+            renderRecords(filtered);
+        }
+
+        document.getElementById('searchDate').addEventListener('change', filterRecords);
+        document.getElementById('searchName').addEventListener('input', filterRecords);
+        document.getElementById('searchType').addEventListener('change', filterRecords);
+        document.getElementById('clearSearch').addEventListener('click', function() {
+            document.getElementById('searchDate').value = '';
+            document.getElementById('searchName').value = '';
+            document.getElementById('searchType').value = '';
+            renderRecords(allRecords);
+        });
+
+        // 药单详情弹窗
+        function showDetailsModal(idx) {
+            const rec = allRecords[idx];
+            if (!rec) return;
+            let html = `<h3>药单详情</h3>`;
+            html += `<div style='display:flex;gap:0;align-items:flex-start;width:100%;min-width:540px;'>`;
+            // 左侧：药单内容
+            html += `<div style='flex:1;min-width:220px;padding-right:32px;'>`;
+            html += `<div class='modal-row'><span>记录ID：</span>${rec.id || ''}</div>`;
+            html += `<div class='modal-row'><span>患者姓名：</span>${rec.patientName || ''}</div>`;
+            html += `<div class='modal-row'><span>药单类型：</span>${rec.type === 'handwritten' ? '手写' : '电子'}</div>`;
+            html += `<div class='modal-row'><span>配药时间：</span>${rec.timestamp ? new Date(rec.timestamp).toLocaleString() : ''}</div>`;
+            if (rec.image) {
+                html += `<img class='modal-img' src='${rec.image}' alt='药单图片'>`;
+            }
+            if (rec.medicines && rec.medicines.length > 0) {
+                html += `<div class='medicines-section'>`;
+                html += `<div class='medicines-section-title'>药品明细：</div><ul>`;
+                rec.medicines.forEach(med => {
+                    html += `<li>${med.name || ''}：${med.weight || ''}</li>`;
+                });
+                html += `</ul></div>`;
+            }
+            if (rec.copies) {
+                html += `<div class='modal-row'><span>付数：</span>${rec.copies}</div>`;
+            }
+            if (rec.status) {
+                html += `<div class='modal-row'><span>状态：</span>${rec.status}</div>`;
+            }
+            if (rec.dispensingStatus) {
+                html += `<div class='modal-row'><span>配药状态：</span>${rec.dispensingStatus}</div>`;
+            }
+            html += `</div>`;
+            // 分割线
+            html += `<div style='width:1px;height:auto;background:linear-gradient(to bottom,#e0e0e0 10%,#b2dfdb 50%,#e0e0e0 90%);margin:0 18px;align-self:stretch;'></div>`;
+            // 右侧：实际配药明细
+            html += `<div style='flex:1;min-width:320px;overflow-x:auto;'>`;
+            if (Array.isArray(rec.actualMedicines) && rec.actualMedicines.length > 0 && rec.medicines && rec.medicines.length > 0) {
+                let isMulti = Array.isArray(rec.actualMedicines[0]);
+                let medicinesList = isMulti ? rec.actualMedicines : [rec.actualMedicines];
+                // 药材名映射表
+                const nameMap = {
+                    zhicaowu: '制草乌',
+                    qianghuo: '羌活',
+                    duhuo: '独活',
+                    chaotaoren: '炒桃仁',
+                    tougucao: '透骨草',
+                    xiakucao: '夏枯草',
+                    shenghuangqi: '生黄芪',
+                    chaobaishu: '炒白术'
+                    // ...如有其它药品请补全
+                };
+                // 以药单 medicines 为准
+                let medNames = rec.medicines.map(med => med.name);
+                html += `<div class='medicines-section'>`;
+                html += `<div class='medicines-section-title'>实际配药明细：</div>`;
+                html += `<table style='width:100%;margin-bottom:10px;table-layout:auto;'><thead><tr><th>份数</th>`;
+                medNames.forEach(name => {
+                    html += `<th>${nameMap[name] || name}</th>`;
+                });
+                html += `</tr></thead><tbody>`;
+                for(let i=0;i<medicinesList.length;i++){
+                    let medArr = medicinesList[i];
+                    html += `<tr><td>第${i+1}份</td>`;
+                    medNames.forEach(name => {
+                        // 支持拼音和中文匹配
+                        let med = medArr.find(m => m.name === name || nameMap[m.name] === name);
+                        html += `<td>${med && med.weight ? med.weight + 'g' : '-'}</td>`;
+                    });
+                    html += `</tr>`;
+                }
+                html += `</tbody></table></div>`;
+            }
+            html += `</div></div>`;
+            document.getElementById('detailsContent').innerHTML = html;
+            document.getElementById('detailsModal').style.display = 'flex';
+        }
+        function closeDetailsModal() {
+            document.getElementById('detailsModal').style.display = 'none';
+        }
+        window.showDetailsModal = showDetailsModal;
+        window.closeDetailsModal = closeDetailsModal;
+
+        // 弹窗关闭功能增强
+        // 1. 右上角关闭按钮已绑定 closeDetailsModal
+        // 2. 遮罩层点击关闭弹窗
+        const detailsModal = document.getElementById('detailsModal');
+        detailsModal.addEventListener('click', function(e) {
+          if (e.target === detailsModal) {
+            closeDetailsModal();
+          }
+        });
+
+        // 页面加载时获取药单记录
+        fetch('/api/records')
+            .then(res => res.json())
+            .then(data => {
+                allRecords = data;
+                renderRecords(allRecords);
+            })
+            .catch(() => {
+                document.getElementById('recordsBody').innerHTML = '<tr><td colspan="5">加载失败</td></tr>';
+            });
+    </script>
+</body>
+</html>

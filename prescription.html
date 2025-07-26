@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>药单识别 - 中药配药系统</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #388E3C;
+            --secondary-color: #f0ad4e;
+            --danger-color: #d9534f;
+            --light-gray: #f5f5f5;
+            --border-color: #ddd;
+            --text-color: #333;
+            --text-light: #777;
+            --shadow: 0 4px 24px rgba(0,0,0,0.08);
+            --waiting-color: #5bc0de;
+            --verified-color: #5cb85c;
+            --dispensing-color: #f0ad4e;
+            --dispensed-color: #5cb85c;
+            --not-dispensed-color: #d9534f;
+        }
+        body {
+            margin-left: 250px;
+            background: #f5f7fa;
+            color: var(--text-color);
+        }
+        .main-container {
+            display: flex;
+            height: calc(100vh - 80px); /* 减去顶部间距 */
+            gap: 24px;
+        }
+
+        .prescription-list-container {
+            width: 320px;
+            flex-shrink: 0;
+            background: #fff;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            overflow-y: auto;
+        }
+        .prescription-detail-container {
+            flex-grow: 1;
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 32px;
+            box-shadow: var(--shadow);
+            overflow-y: auto;
+        }
+        .list-header {
+            margin-bottom: 16px;
+        }
+        .list-header .mode-btn {
+            width: calc(50% - 4px);
+            box-sizing: border-box;
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+        .prescription-list-item {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .prescription-list-item:hover, .prescription-list-item.active {
+            border-color: var(--primary-color);
+            background-color: #f7fff7;
+        }
+        .list-item-title {
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        .list-item-meta {
+            font-size: 13px;
+            color: var(--text-color);
+            margin-top: 4px;
+            font-weight: 600;
+        }
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 24px;
+        }
+        .detail-header h3 {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+        }
+        .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 15px;
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            box-shadow: 0 3px 12px rgba(76, 175, 80, 0.18);
+        }
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #ec971f;
+            box-shadow: 0 3px 12px rgba(240, 173, 78, 0.18);
+        }
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        .btn-danger:hover {
+            background-color: #c9302c;
+            box-shadow: 0 3px 12px rgba(217, 83, 79, 0.18);
+        }
+        .btn-info {
+            background-color: var(--primary-dark);
+            color: white;
+        }
+        .result-container {
+            border: 1.5px solid var(--border-color);
+            padding: 32px 28px;
+            margin-bottom: 36px;
+            background: #fafbfc;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+        .result-content {
+            display: flex;
+            gap: 36px;
+        }
+        .prescription-image {
+            flex: 1;
+            max-width: 420px;
+        }
+        .prescription-image img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1.5px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .prescription-data {
+            flex: 2;
+        }
+        .result-container h3 {
+            margin-bottom: 22px;
+            color: var(--primary-dark);
+            font-size: 1.35rem;
+        }
+        .form-group {
+            margin-bottom: 22px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 7px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.13);
+            outline: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 22px 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+        th, td {
+            border: 1.5px solid var(--border-color);
+            padding: 14px 16px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--light-gray);
+            font-weight: 700;
+        }
+        tr:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+        tr:hover {
+            background-color: #f0f0f0;
+        }
+        .edit-field {
+            width: 100%;
+            padding: 10px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 18px;
+            margin-top: 24px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            margin-left: 12px;
+        }
+        .status-waiting { background-color: #5bc0de; }
+        .status-verified { background-color: #5cb85c; }
+        .status-dispensing { background-color: #f0ad4e; }
+        .status-dispensed { background-color: #5cb85c; }
+        .status-not-dispensed { background-color: #d9534f; }
+        .e-prescription-list, .handwritten-list {
+            margin-bottom: 36px;
+        }
+        .e-prescription-item, .handwritten-item {
+            background: white;
+            padding: 18px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1.5px solid var(--border-color);
+        }
+        .e-prescription-item:hover, .handwritten-item:hover {
+            border-color: var(--primary-color);
+        }
+        .e-prescription-header, .handwritten-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .e-prescription-title, .handwritten-title {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        .e-prescription-date, .handwritten-status {
+            color: var(--text-color);
+            font-size: 15px;
+        }
+        .e-prescription-preview, .handwritten-preview {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+        .e-prescription-thumbnail, .handwritten-thumbnail {
+            width: 90px;
+            height: 68px;
+            border-radius: 6px;
+            border: 1.5px solid var(--border-color);
+            object-fit: cover;
+        }
+        .e-prescription-summary, .handwritten-summary {
+            flex: 1;
+            font-size: 15px;
+            color: var(--text-color);
+        }
+        @media (max-width: 992px) {
+            body {
+                margin-left: 0;
+                padding-top: 60px;
+            }
+            .result-content {
+                flex-direction: column;
+            }
+            .prescription-image {
+                max-width: 100%;
+            }
+            .mode-selector {
+                position: static;
+                margin-bottom: 24px;
+                justify-content: flex-end;
+            }
+        }
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 16px;
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 18px;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+            }
+            .mode-selector {
+                position: static;
+                margin: 18px 0;
+                justify-content: center;
+            }
+        }
+        .modal {
+            display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(2px);
+            justify-content: center; align-items: center; animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .modal-content {
+            position: relative; background: #fff; border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            padding: 24px 24px 12px 24px; display: flex; flex-direction: column; align-items: center;
+            animation: scaleIn 0.3s;
+        }
+        @keyframes scaleIn { from { transform: scale(0.85); } to { transform: scale(1); } }
+        .modal-content img {
+            max-width: 70vw; max-height: 70vh; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            margin-bottom: 10px;
+        }
+        .modal-close {
+            position: absolute; top: 10px; right: 18px; font-size: 2rem; color: #888; cursor: pointer; font-weight: bold;
+            transition: color 0.2s;
+        }
+        .modal-close:hover { color: #d9534f; }
+        .modal-caption {
+            color: #555; font-size: 1rem; margin-top: 2px; text-align: center;
+        }
+
+        /* 隐藏不再需要的样式 */
+        .initial-mode-selector, .mode-selector, .header, .e-prescription-list, .handwritten-list, .result-container {
+            display: none !important;
+        }
+        .mode-btn {
+            padding: 10px 28px;
+            border-radius: 22px;
+            border: 2px solid var(--border-color);
+            background: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #333;
+        }
+        .mode-btn.active {
+            border-color: #4CAF50;
+            background-color: #4CAF50;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(76,175,80,0.12);
+        }
+        .mode-btn:not(.active) {
+            background: #f5f7fa;
+            color: #333;
+        }
+        .prescription-list-container.handwritten-active,
+        .prescription-list-container.electronic-active {
+            background: #e8f5e9;
+        }
+        .list-item-title {
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        .list-item-meta {
+            font-size: 13px;
+            color: var(--text-color);
+            margin-top: 4px;
+            font-weight: 600;
+        }
+        .prescription-image-large {
+            max-width: 420px;
+            max-height: 420px;
+            display: block;
+            margin: 8px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            cursor: pointer;
+        }
+        .medicines-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+        .medicines-table td {
+            padding: 6px 8px;
+        }
+        .med-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f8faf8;
+            border-radius: 6px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+            padding: 6px 8px;
+        }
+        .med-group input[type="text"], .med-group input[type="number"] {
+            width: 80px;
+            padding: 4px 6px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .med-group .btn-danger {
+            padding: 4px 10px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航菜单容器 -->
+    <div id="nav-menu-container"></div>
+    
+    <!-- 主内容区域: 左侧列表, 右侧详情 -->
+    <div class="main-container">
+        <!-- 左侧: 药单列表 -->
+        <div class="prescription-list-container" id="prescriptionListContainer">
+            <div class="list-header">
+                <button class="mode-btn active" id="handwrittenModeBtn">手写药单</button>
+            <button class="mode-btn" id="electronicModeBtn">电子药单</button>
+        </div>
+            <div id="prescriptionList">
+                <!-- JS动态填充 -->
+            </div>
+        </div>
+
+        <!-- 右侧: 药单详情与编辑 -->
+        <div class="prescription-detail-container" id="detailView" style="display:none;">
+            <div class="detail-header">
+                <h3 id="detailTitle">药单详情</h3>
+            </div>
+            
+            <div class="form-group">
+                <label>患者姓名:</label>
+                <input type="text" id="patientName" />
+            </div>
+
+            <div class="form-group">
+                <label>份数:</label>
+                <input type="number" id="copies" min="1" />
+        </div>
+
+            <div class="form-group">
+                <label>药单图片:</label>
+                <img id="prescriptionImage" class="prescription-image-large" src="" alt="药单图片" />
+            </div>
+            
+                        <div class="form-group">
+                <label>药品列表:</label>
+                <table class="medicines-table" id="medicinesTable">
+                    <tbody id="medicinesTableBody"></tbody>
+                        </table>
+                <button id="addMedicineBtn" class="btn btn-secondary" style="margin-top:8px;">添加药品</button>
+            </div>
+            
+                        <div class="action-buttons">
+                <button id="sendPrescriptionBtn" class="btn btn-primary">发送修改后药单</button>
+                <button id="savePrescriptionBtn" class="btn btn-secondary">保存修改</button>
+            </div>
+        </div>
+        
+        <!-- 图片放大预览 -->
+        <div id="imageModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="modal-close" id="modalCloseBtn">&times;</span>
+                <img id="modalImg" src="" alt="大图预览">
+                <div class="modal-caption" id="modalCaption"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="ws-client.js"></script>
+    <script>
+        console.log('页面脚本已加载');
+        let ws = new WebSocket('ws://' + window.location.hostname + ':3000');
+        // 获取处方数据
+        let handwrittenPrescriptionData = [];
+        let ePrescriptionData = [];
+        fetch('/prescriptions')
+            .then(res => res.json())
+            .then(data => {
+                // 修正：后端返回 {handwritten:[], electronic:[]}
+                handwrittenPrescriptionData = data.handwritten || [];
+                ePrescriptionData = data.electronic || [];
+                // 这里可根据页面逻辑调用渲染函数
+            });
+
+        // 检查登录状态并加载菜单
+        if (!localStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        } else {
+            fetch('menu.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('nav-menu-container').innerHTML = html;
+                    highlightActiveMenu();
+                })
+                .catch(error => {
+                    console.error('菜单加载失败:', error);
+                });
+        }
+        function highlightActiveMenu() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const menuItems = document.querySelectorAll('.nav-menu a:not(.logout)');
+            menuItems.forEach(item => {
+                if (item.getAttribute('href') === currentPage) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+        window.logout = function() {
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = 'login.html';
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            // 高级图片放大功能
+            function showImageModal(src, caption) {
+                document.getElementById('modalImg').src = src;
+                document.getElementById('modalCaption').textContent = caption || '';
+                document.getElementById('imageModal').style.display = 'flex';
+            }
+            function closeImageModal() {
+                document.getElementById('imageModal').style.display = 'none';
+                document.getElementById('modalImg').src = '';
+                document.getElementById('modalCaption').textContent = '';
+            }
+            document.getElementById('modalCloseBtn').onclick = closeImageModal;
+            document.getElementById('imageModal').onclick = function(e) {
+                if (e.target === this) closeImageModal();
+            };
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeImageModal();
+            });
+        });
+
+        let allPrescriptions = { handwritten: [], electronic: [] };
+        let currentMode = 'handwritten';
+        let activePrescription = null;
+
+        // WebSocket连接和消息处理
+        ws.onopen = function() {
+            console.log('WebSocket已连接');
+            ws.send(JSON.stringify({ type: 'getPrescriptions' }));
+        };
+        ws.onmessage = function(event) {
+            const msg = JSON.parse(event.data);
+            console.log('收到消息:', msg.type);
+            switch(msg.type) {
+                case 'prescriptionsData':
+                    allPrescriptions = { 
+                        handwritten: msg.handwritten || [],
+                        electronic: msg.electronic || []
+                    };
+                    renderPrescriptionList();
+                    break;
+                case 'newPrescription':
+                    // 如果是数组，则批量添加
+                    const prescriptions = Array.isArray(msg.data) ? msg.data : [msg.data];
+                    prescriptions.forEach(p => {
+                        if (p.type === 'handwritten') {
+                            allPrescriptions.handwritten.unshift(p);
+                        } else {
+                            allPrescriptions.electronic.unshift(p);
+                        }
+                    });
+                    renderPrescriptionList();
+                    break;
+                case 'prescriptionUpdate':
+                    const pUpdate = msg.data;
+                    const listToUpdate = pUpdate.type === 'handwritten' ? allPrescriptions.handwritten : allPrescriptions.electronic;
+                    const index = listToUpdate.findIndex(p => p.id === pUpdate.id);
+                    if (index > -1) {
+                        Object.assign(listToUpdate[index], pUpdate);
+                        renderPrescriptionList();
+                        // 如果更新的是当前正在查看的药单，则刷新详情
+                        if (activePrescription && activePrescription.id === pUpdate.id) {
+                            renderDetailView(listToUpdate[index]);
+                        }
+                    }
+                    break;
+                case 'sendPrescriptionResult':
+                    if (msg.success) {
+                        alert('药单已成功下发到配药监控！');
+                        window.location.href = 'dispensing.html';
+                    } else {
+                        alert('药单下发失败：' + (msg.error || '未知原因'));
+                    }
+                    break;
+            }
+        };
+
+        // 渲染药单列表
+        function renderPrescriptionList() {
+            const listContainer = document.getElementById('prescriptionList');
+            listContainer.innerHTML = '';
+            const data = allPrescriptions[currentMode].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+            function getStatusColor(status) {
+                if (status === 'done') return '#4CAF50';
+                if (status === 'doing') return '#FFA500';
+                return '#F44336';
+            }
+            function getStatusText(status) {
+                if (status === 'done') return '已配药';
+                if (status === 'doing') return '正在配药';
+                return '未配药';
+            }
+            data.forEach(p => {
+                const item = document.createElement('div');
+                item.className = 'prescription-list-item';
+                if (activePrescription && activePrescription.id === p.id) {
+                    item.classList.add('active');
+                }
+                item.innerHTML = `
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div>
+                            <div class="list-item-title">${p.title || p.id}</div>
+                            <div class="list-item-meta">${p.id} | ${new Date(p.timestamp).toLocaleString()}</div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:6px;white-space:nowrap;">
+                            <span style="
+                                display:inline-block;
+                                width:16px;height:16px;
+                                border-radius:50%;
+                                background:${getStatusColor(p.status)};
+                                border:2px solid #fff;
+                                box-shadow:0 1px 4px rgba(0,0,0,0.08);
+                            "></span>
+                            <span style="font-size:14px;font-weight:600;color:${getStatusColor(p.status)};margin-left:2px;">
+                                ${getStatusText(p.status)}
+                            </span>
+                        </div>
+                    </div>
+                `;
+                item.onclick = () => {
+                    renderDetailView(p);
+                    document.querySelectorAll('.prescription-list-item').forEach(el => el.classList.remove('active'));
+                    item.classList.add('active');
+                };
+                listContainer.appendChild(item);
+            });
+        }
+        
+        // 渲染详情视图
+        function renderDetailView(p) {
+            activePrescription = JSON.parse(JSON.stringify(p)); // 深拷贝
+            document.getElementById('detailView').style.display = 'block';
+            document.getElementById('detailTitle').textContent = p.title || p.id;
+            document.getElementById('patientName').value = p.patientName || '';
+            document.getElementById('copies').value = p.copies || 1;
+            document.getElementById('prescriptionImage').src = p.image || '';
+            
+            renderMedicinesTable(p.medicines || []);
+        }
+
+        // 渲染药品表格
+        function renderMedicinesTable(medicines) {
+            const tbody = document.getElementById('medicinesTableBody');
+            tbody.innerHTML = '';
+            for (let i = 0; i < medicines.length; i += 2) {
+                const tr = document.createElement('tr');
+                let group1 = `<div class="med-group">
+                    <input type="text" value="${medicines[i].name}" class="edit-field" data-index="${i}" data-field="name" placeholder="中药名" />
+                    <input type="number" value="${medicines[i].weight}" class="edit-field" data-index="${i}" data-field="weight" placeholder="克数" />
+                    <button class="btn btn-danger remove-med-btn" data-index="${i}">删除</button>
+                </div>`;
+                let group2 = '';
+                if (i + 1 < medicines.length) {
+                    group2 = `<div class="med-group">
+                        <input type="text" value="${medicines[i+1].name}" class="edit-field" data-index="${i+1}" data-field="name" placeholder="中药名" />
+                        <input type="number" value="${medicines[i+1].weight}" class="edit-field" data-index="${i+1}" data-field="weight" placeholder="克数" />
+                        <button class="btn btn-danger remove-med-btn" data-index="${i+1}">删除</button>
+                    </div>`;
+                }
+                tr.innerHTML = `<td>${group1}</td><td>${group2}</td>`;
+                tbody.appendChild(tr);
+            }
+        }
+
+        // --- 事件绑定 ---
+        document.getElementById('handwrittenModeBtn').onclick = () => switchMode('handwritten');
+        document.getElementById('electronicModeBtn').onclick = () => switchMode('electronic');
+
+        function switchMode(mode) {
+            currentMode = mode;
+            document.getElementById('handwrittenModeBtn').classList.toggle('active', mode === 'handwritten');
+            document.getElementById('electronicModeBtn').classList.toggle('active', mode === 'electronic');
+            activePrescription = null;
+            document.getElementById('detailView').style.display = 'none';
+            renderPrescriptionList();
+            // 切换列表区背景色
+            const listContainer = document.getElementById('prescriptionListContainer');
+            listContainer.classList.toggle('handwritten-active', mode === 'handwritten');
+            listContainer.classList.toggle('electronic-active', mode === 'electronic');
+        }
+
+        // 添加药品
+        document.getElementById('addMedicineBtn').onclick = () => {
+            if (!activePrescription) return;
+            activePrescription.medicines.push({ name: '', weight: '' });
+            renderMedicinesTable(activePrescription.medicines);
+        };
+        
+        // 表格内输入和删除
+        document.getElementById('medicinesTableBody').addEventListener('input', (e) => {
+            if (e.target.classList.contains('edit-field') && activePrescription) {
+                const index = e.target.dataset.index;
+                const field = e.target.dataset.field;
+                activePrescription.medicines[index][field] = e.target.value;
+            }
+        });
+        document.getElementById('medicinesTableBody').addEventListener('click', (e) => {
+            if (e.target.classList.contains('remove-med-btn') && activePrescription) {
+                activePrescription.medicines.splice(e.target.dataset.index, 1);
+                renderMedicinesTable(activePrescription.medicines);
+            }
+        });
+
+        // 其他表单字段更新
+        document.getElementById('patientName').oninput = (e) => { if(activePrescription) activePrescription.patientName = e.target.value; };
+        document.getElementById('copies').oninput = (e) => { if(activePrescription) activePrescription.copies = +e.target.value; };
+
+        // 图片上传
+        // document.getElementById('imageInput').onchange = (e) => {
+        //     const file = e.target.files[0];
+        //     if (!file) return;
+        //     const reader = new FileReader();
+        //     reader.onload = (evt) => {
+        //         document.getElementById('prescriptionImage').src = evt.target.result;
+        //         if(activePrescription) activePrescription.image = evt.target.result;
+        //     };
+        //     reader.readAsDataURL(file);
+        // };
+        
+        // 发送修改后的药单
+        document.getElementById('sendPrescriptionBtn').onclick = async () => {
+            if (!activePrescription) return alert('没有选中的药单');
+            if (!activePrescription.copies || isNaN(activePrescription.copies) || activePrescription.copies <= 0) {
+                alert('请填写正确的总份数（正整数）');
+                return;
+            }
+            console.log('发送药单内容:', activePrescription);
+            // 1. 先POST到后端，设置currentDispense
+            try {
+                const res = await fetch('/api/dispense', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(activePrescription)
+                });
+                const result = await res.json();
+                if (!result.success) {
+                    alert('药单下发失败：' + (result.error || '未知原因'));
+                    return;
+                }
+            } catch (e) {
+                alert('药单下发失败：' + e.message);
+                return;
+            }
+            // 2. 再通过WebSocket通知SC171V2
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({
+                    type: 'confirmPrescriptionToSC171',
+                    data: activePrescription
+                }));
+            }
+            // 不要直接alert，等ws.onmessage返回
+        };
+        // 保存修改的药单
+        document.getElementById('savePrescriptionBtn').onclick = () => {
+            if (!activePrescription) return alert('没有选中的药单');
+            if (!ws || ws.readyState !== WebSocket.OPEN) return alert('WebSocket未连接');
+            ws.send(JSON.stringify({
+                type: 'savePrescription',
+                data: activePrescription
+            }));
+            alert('药单已保存!');
+        };
+        
+        // 图片放大
+        document.getElementById('prescriptionImage').onclick = function() {
+            if(this.src) showImageModal(this.src, '药单图片');
+        };
+
+        // 页面初始化时设置默认高亮
+        switchMode('handwritten');
+    </script>
+</body>
+</html> 
